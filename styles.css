@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0d1b2a, #1b263b);
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+/* Tank Container */
+.tank {
+    width: 900px;
+    height: 550px;
+    position: relative;
+    background: linear-gradient(135deg, rgba(80, 155, 200, 0.85), rgba(0, 100, 140, 0.9));
+    border: 20px solid #1e2a38;
+    border-radius: 30px;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.7), 0 20px 30px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transform: rotateX(5deg);
+    background-image: 
+        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"%3E%3Cpath fill="rgba(255,255,255,0.2)" d="M0,128L60,138.7C120,149,240,171,360,165.3C480,160,600,128,720,122.7C840,117,960,139,1080,149.3C1200,160,1320,160,1380,160L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"%3E%3C/path%3E%3C/svg%3E'),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+    background-size: 300% 100%, 100% 100%;
+    animation: waterShift 15s infinite linear;
+}
+
+@keyframes waterShift {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: -1440px 0, 0 0; }
+}
+
+.tank::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 50%);
+    opacity: 0.6;
+    animation: lightWarp 20s infinite ease-in-out;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+@keyframes lightWarp {
+    0% { transform: translate(-20%, -20%) rotate(0deg); }
+    50% { transform: translate(20%, 20%) rotate(180deg); }
+    100% { transform: translate(-20%, -20%) rotate(360deg); }
+}
+
+.tank::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, #3c2f2f, #6b4e31);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.9);
+    filter: blur(2px);
+}
