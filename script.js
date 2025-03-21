@@ -94,3 +94,26 @@ function moveFish() {
                 if (closestFish) closestFish.targetFood = foodObj;
             }
         });
+
+        // Spawn Bubbles
+        function spawnBubble(x, y) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = `${x + 15}px`;
+            bubble.style.top = `${y}px`;
+            tank.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 6000);
+        }
+
+        // Ambient Bubbles
+        setInterval(() => {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = `${Math.random() * 840 + 30}px`;
+            bubble.style.top = `${Math.random() * 450 + 50}px`;
+            tank.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 6000);
+        }, 1200);
+
+        // Start Animation
+        moveFish();
