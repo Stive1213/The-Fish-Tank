@@ -62,3 +62,35 @@ function moveFish() {
 
     requestAnimationFrame(moveFish);
 }
+
+        // Feed the Fish
+        feedBtn.addEventListener('click', () => {
+            for (let i = 0; i < 12; i++) {
+                const food = document.createElement('div');
+                food.className = 'food';
+                const foodX = Math.random() * 840 + 30;
+                food.style.left = `${foodX}px`;
+                food.style.top = '-40px';
+                tank.appendChild(food);
+
+                const foodObj = { el: food, x: foodX, y: -40 };
+                food.addEventListener('animationend', () => {
+                    if (food.parentNode) food.remove();
+                });
+
+                let closestFish = null;
+                let minDistance = Infinity;
+                fish.forEach(f => {
+                    if (!f.targetFood) {
+                        const dx = foodObj.x - f.x;
+                        const dy = foodObj.y - f.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestFish = f;
+                        }
+                    }
+                });
+                if (closestFish) closestFish.targetFood = foodObj;
+            }
+        });
